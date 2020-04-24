@@ -1,5 +1,4 @@
 const express = require('express');
-const colors = require('colors');
 const morgan = require('morgan');
 //const pug = require('pug');
 const path = require('path');
@@ -23,5 +22,5 @@ app.use(express.static(path.join(__dirname, './views')));
 
 
 app.listen(app.get('port'), ()=>{
-    console.log(colors.bgBlue(`El servidor esta funcionando en el puerto ${app.get('port')}`).black);
+    console.log(`El servidor esta funcionando en el puerto ${app.get('port')}`);
 });
