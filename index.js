@@ -1,5 +1,5 @@
 const express = require('express');
-const morgan = require('morgan');
+//const morgan = require('morgan');
 //const pug = require('pug');
 const path = require('path');
 
@@ -13,7 +13,7 @@ app.set('view engine', 'pug');
 
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
-app.use(morgan('dev'));
+//app.use(morgan('dev'));
 
 app.use(require('./routes'));
 
