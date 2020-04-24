@@ -1,6 +1,6 @@
 const express = require('express');
 const conexion = require('./database');
-const colors = require('colors')
+
 const Router = express.Router();
 
 let menError = [{"mensaje": "No hay nada"}]
@@ -61,7 +61,7 @@ Router.get('/api/usuarios/formulario', (req, res)=>{
 
 Router.get('/api/usuarios/mostrar/formulario', (req, res)=>{
     const { id } = req.query;
-    console.log(colors.bgRed(id).black);
+    console.log(id);
 
     conexion.query(`SELECT * FROM hojas WHERE id_usuario = '${id}'`, (error, consultado)=>{
         console.table(consultado);
