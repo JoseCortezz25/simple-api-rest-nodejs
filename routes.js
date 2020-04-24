@@ -46,8 +46,12 @@ Router.get('/api/usuarios/formulario', (req, res)=>{
     console.log(`Id: '${id}', Documento'${input2}', fecha nacimiento: '${input3}', lugar de nacimiento: '${input4}', Estado civil: '${input5}', 
                     Direccion: '${input6}', Telefono: '${input7}'`);
 
-    conexion.query(`INSERT INTO hojas(id_usuario, descripcion, fecha_nacimiento, lugar_nacimiento, estado_civil, direccion, telefono) VALUES('${id}','${input2}','${input3}','${input4}','${input5}','${input6}','${input7}')`, (error, consultado)=>{
+    conexion.query(`INSERT INTO hojas(id_usuario, descripcion, fecha_nacimiento, lugar_nacimiento, estado_civil, direccion, telefono) VALUES(${id},'${input2}','${input3}','${input4}','${input5}','${input6}','${input7}')`, (error, consultado)=>{
+        
+        console.log("---------------------- Consultado: -----------------------------");
         console.table(consultado);
+        console.log("---------------------- ----------- -----------------------------");
+        console.log(error)
         if(consultado != ""){
             res.json(consultado);
         }else{
@@ -64,36 +68,16 @@ Router.get('/api/usuarios/mostrar/formulario', (req, res)=>{
     console.log(id);
 
     conexion.query(`SELECT * FROM hojas WHERE id_usuario = '${id}'`, (error, consultado)=>{
+        console.log("---------------------- Consultado: -----------------------------");
         console.table(consultado);
-
+        console.log("---------------------- ----------- -----------------------------");
         if(consultado != ""){
             res.json({consultado});
         }else{
             res.json(menError[0]);
         }
+
     });
 })
-/*
-a=[
-    {
-        "id_hojas":1,
-        "id_usuario":1,
-        "descripcion":"descripcion",
-        "fecha_nacimiento":"fecha nacimiento",
-        "lugar_nacimiento":"lugar nacimiento",
-        "estado_civil":"estado civil",
-        "direccion":"direccion",
-        "telefono":0
-    },
-    {
-        "id_hojas":2,"id_usuario":1,
-        "descripcion":"La descripcion",
-        "fecha_nacimiento":"16 de marzo",
-        "lugar_nacimiento":"Neiva ",
-        "estado_civil":"Es Complicado",
-        "direccion":"Direccion",
-        "telefono":2147483647
-    }
-]
-*/
+
 module.exports = Router;
