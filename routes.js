@@ -83,13 +83,13 @@ Router.get('/api/usuarios/mostrar/formulario', (req, res)=>{
 
 
 Router.get('/api/usuarios/eliminar/formulario', (req, res)=>{
-    const { id } = req.query;
+    const { id, user } = req.query;
     console.log(id);
 
     if(id == undefined){
         res.json({error: 'El dato ingresado es undefined'})
     }else{
-        conexion.query(`DELETE FROM hojas WHERE id_hojas = '${id}'`, (error, consultado)=>{
+        conexion.query(`DELETE FROM hojas WHERE id_hojas = '${id} and id_usuario = '${user}'`, (error, consultado)=>{
             if(error){
                 res.json({error: 'Ocurrio un error'})
             }
