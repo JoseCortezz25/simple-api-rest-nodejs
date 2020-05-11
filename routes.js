@@ -46,12 +46,13 @@ Router.get('/api/usuarios/formulario', (req, res)=>{
     console.log(`Id: '${id}', Documento'${input2}', fecha nacimiento: '${input3}', lugar de nacimiento: '${input4}', Estado civil: '${input5}', 
                     Direccion: '${input6}', Telefono: '${input7}'`);
 
-    conexion.query(`INSERT INTO hojas(id_usuario, descripcion, fecha_nacimiento, lugar_nacimiento, estado_civil, direccion, telefono) VALUES(${id},'${input2}','${input3}','${input4}','${input5}','${input6}','${input7}')`, (error, consultado)=>{
+    conexion.query(`INSERT INTO hojas(id_usuario, descripcion, fecha_nacimiento, lugar_nacimiento, estado_civil, direccion, telefono) VALUES(${id},'${input2}','${input3}','${input4}','${input5}','${input6}',${input7})`, (error, consultado)=>{
         
         console.log("---------------------- Consultado: -----------------------------");
         console.table(consultado);
-        console.log("---------------------- ----------- -----------------------------");
+        console.log("---------------------- Error: -----------------------------");
         console.log(error)
+        console.log("---------------------------------------------------------------");
         if(consultado != ""){
             res.json(consultado);
         }else{
@@ -79,5 +80,62 @@ Router.get('/api/usuarios/mostrar/formulario', (req, res)=>{
 
     });
 })
+
+
+Router.get('/api/usuarios/eliminar/formulario', (req, res)=>{
+    const { id } = req.query;
+    console.log(id);
+
+    if(id == undefined){
+        res.json({error: 'El dato ingresado es undefined'})
+    }else{
+        conexion.query(`DELETE FROM hojas WHERE id_hojas = '${id}'`, (error, consultado)=>{
+            if(error){
+                res.json({error: 'Ocurrio un error'})
+            }
+            if(consultado == ''){
+                res.json({error: 'No hay datos encontrados'})
+            }
+            if(consultado != ''){
+                res.json({correcto: 'La hoja fue eliminada'})
+                console.log(consultado)
+            }
+        });
+    }
+})
+
+Router.get('/api/usuarios/actualizar/formulario', (req, res)=>{
+    const { id } = req.query;
+    console.log(id);
+
+    if(id == undefined){
+        res.json({error: 'El dato ingresado es undefined'})
+    }else{
+        try {
+            conexion.query(
+                `UPDATE hojas 
+                SET descripcion = '${input2}', fecha_nacimiento = '${input3}', lugar_nacimiento = '${input4}', 
+                estado_civil = '${input5}', direccion = '${input6}', telefono = '${input7}' 
+                WHERE id_hojas = '${id}'`, 
+                (error, consultado)=>{
+
+                if(consultado == ''){
+                    res.json({error: 'No hay datos encontrados'})
+                }
+                if(consultado != ''){
+                    res.json(consultado)
+                    console.log(consultado)
+                }
+            });
+        } catch (error) {
+            console.log("---------------------- Error -----------------------------");
+            console.log(error)
+            res.json({error: 'Ocurrio un error'})
+        }
+
+    }
+})
+
+
 
 module.exports = Router;

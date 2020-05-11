@@ -1,5 +1,13 @@
 const mysql = require('mysql');
 
+// const Pool = mysql.createPool({
+//     host: 'localhost',
+//     user: 'root',
+//     password: '',
+//     database: 'leaf_bd',
+// });
+
+
 const Pool = mysql.createPool({
     host: 'remotemysql.com',
     user: 'wl2K3iPohQ',
