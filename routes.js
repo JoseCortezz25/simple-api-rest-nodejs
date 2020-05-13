@@ -105,7 +105,7 @@ Router.get('/api/usuarios/eliminar/formulario', (req, res)=>{
 })
 
 Router.get('/api/usuarios/actualizar/formulario', (req, res)=>{
-    const { id } = req.query;
+    const { id, input2, input3, input4, input5, input6, input7 } = req.query;
     console.log(id);
 
     if(id == undefined){
