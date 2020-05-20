@@ -136,6 +136,57 @@ Router.get('/api/usuarios/actualizar/formulario', (req, res)=>{
     }
 })
 
+Router.get('/api/usuario', (req, res)=>{
+    const { name } = req.query;
+    console.log(name);
+
+    if(name == undefined){
+        res.json({error: 'El dato ingresado es undefined'})
+    }else{
+        try {
+            conexion.query(`SELECT contraseña FROM usuario WHERE nombre = '${name}'`, (error, consultado)=>{
+                if(consultado == ''){
+                    res.json({error: 'No hay datos encontrados'})
+                }
+                if(consultado != ''){
+                    res.json(consultado[0])
+                    console.log(consultado)
+                }
+            });
+        } catch (error) {
+            console.log("---------------------- Error -----------------------------");
+            console.log(error)
+            res.json({error: 'Ocurrio un error'})
+        }
+
+    }
+})
 
 
+Router.get('/api/usuarios/hoja/', async (req, res)=>{
+    const { id } = req.query;
+    console.log(id);
+
+    if(id == undefined){
+        res.json({error: 'El dato ingresado es undefined'})
+    }else{
+        try {
+            conexion.query(`SELECT * FROM hojas WHERE id_hojas = ${id}`, (error, consultado)=>{
+                if(consultado == ''){
+                    res.json({error: 'No hay datos encontrados'})
+                }
+                if(consultado != ''){
+                    res.json(consultado)
+                    console.log(consultado)
+                }
+            });
+                    
+        } catch (error) {
+            console.log("---------------------- Error -----------------------------");
+            console.log(error)
+            res.json({error: 'Ocurrio un error'})
+        }
+
+    }
+})
 module.exports = Router;

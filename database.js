@@ -7,7 +7,6 @@ const mysql = require('mysql');
 //     database: 'leaf_bd',
 // });
 
-
 const Pool = mysql.createPool({
     host: 'remotemysql.com',
     user: 'wl2K3iPohQ',
