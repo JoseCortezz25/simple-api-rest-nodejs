@@ -176,8 +176,8 @@ Router.get('/api/usuarios/hoja/', async (req, res)=>{
                     res.json({error: 'No hay datos encontrados'})
                 }
                 if(consultado != ''){
-                    res.json(consultado)
-                    console.log(consultado)
+                    res.json(consultado[0])
+                    console.log(consultado[0])
                 }
             });
                     
