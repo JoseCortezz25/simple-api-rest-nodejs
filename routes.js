@@ -47,17 +47,17 @@ Router.get('/api/usuarios/formulario', (req, res)=>{
                     Direccion: '${input6}', Telefono: '${input7}'`);
 
     conexion.query(`INSERT INTO hojas(id_usuario, descripcion, fecha_nacimiento, lugar_nacimiento, estado_civil, direccion, telefono) VALUES(${id},'${input2}','${input3}','${input4}','${input5}','${input6}',${input7})`, (error, consultado)=>{
-        
-        console.log("---------------------- Consultado: -----------------------------");
-        console.table(consultado);
-        console.log("---------------------- Error: -----------------------------");
-        console.log(error)
-        console.log("---------------------------------------------------------------");
-        if(consultado != ""){
-            res.json(consultado);
-        }else{
-            res.json(menError[0]);
+        if(error){
+            res.json({error: 'Ocurrio un error'})
         }
+        if(consultado == ''){
+            res.json({error: 'No hay datos encontrados'})
+        }
+        if(consultado != ''){
+            res.json(consultado)
+            console.log(consultado)
+        }
+   
     });
 
 
